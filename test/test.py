@@ -11,8 +11,19 @@ def test2():
     ctest.test('badfile.py', ['test 1', 'test 2'])
 
 
-test1('')
-test1('disp_in disp_out')
-test1('test')
-test1('test disp_out')
-test1('test disp_out disp_correct')
+# test1('')
+# test1('disp_in disp_out')
+# test1('test')
+# test1('test disp_out')
+# test1('test disp_out disp_correct')
+# test1('test disp_time')
+
+io_cases = cases.parse_case_file('iotest/cases/case.txt')
+
+io_cases_sm = cases.parse_case_file('iotest/cases/case_small.txt')
+io_cases_lg = cases.parse_case_file('iotest/cases/case_large.txt')
+
+print('Loaded test files')
+
+ctest.test('iotest/echonormalio.py', io_cases, 'test disp_time')
+ctest.test('iotest/echonormalio.py', io_cases_lg, 'test disp_time')
