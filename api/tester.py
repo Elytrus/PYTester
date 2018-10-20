@@ -28,9 +28,6 @@ def __disp_output(out, err, cor_out, flags):
     if 'disp_out' in flags:
         print('[ Output ] : \n%s' % out)
 
-    # if len(out) < 200:
-    #     print([ord(ch) for ch in out], [ord(ch) for ch in cor_out])
-
     if 'test' in flags:
         if out != cor_out:
             if 'disp_correct' in flags:

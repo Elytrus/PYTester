@@ -18,12 +18,15 @@ def test2():
 # test1('test disp_out disp_correct')
 # test1('test disp_time')
 
-io_cases = cases.parse_case_file('iotest/cases/case.txt')
+io_cases = cases.parse_case_files('iotest/cases/echo', 1)
 
-io_cases_sm = cases.parse_case_file('iotest/cases/case_small.txt')
-io_cases_lg = cases.parse_case_file('iotest/cases/case_large.txt')
+io_cases_sm = cases.parse_case_files('iotest/cases/echo_small', 1)
+io_cases_lg = cases.parse_case_files('iotest/cases/echo_large', 1)
 
-print('Loaded test files')
+print('Loaded test input')
 
 ctest.test('iotest/echonormalio.py', io_cases, 'test disp_time')
 ctest.test('iotest/echonormalio.py', io_cases_lg, 'test disp_time')
+
+ctest.test('iotest/echofastio.py', io_cases, 'test disp_time')
+ctest.test('iotest/echofastio.py', io_cases_lg, 'test disp_time')

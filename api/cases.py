@@ -23,56 +23,35 @@ def to_cases(inputs, outputs=None):
 '''
 Test Data File Format:
 
-'=INPUT' - Denotes input cases
-'=OUTPUT' - Denotes output cases
-'--' - Denotes case separator
+ -- Inputs:
+<base_name>_<case #>.in
 
-Example:
+ -- Outputs:
+<base_name>_<case #>.out
 
-=INPUT
-Hello, World!
---
-Testing 2
-=OUTPUT
-Hell0, W0rld!
---
-Testing 2
+ -- Example:
+<base_name> -> echo
 
+echo_1.in
+echo_2.in
+echo_3.in
+echo_1.out
+echo_2.out
+echo_3.out
 '''
 
-DELIM_INPUT = '=INPUT\n'
-DELIM_OUTPUT = '=OUTPUT\n'
-DELIM_CASE = '--\n'
 
-
-def parse_case_file(file_name):
+def parse_case_files(base_name, case_cnt=1):
     inputs = []
     outputs = []
 
-    mode = 'in'
-    curr_case = ''
+    for i in range(1, case_cnt + 1):
+        curr_base_name = '%s_%d' % (base_name, i)
 
-    def push_case(curr_case):
-        if curr_case != '':
-            if mode == 'in':
-                inputs.append(curr_case.strip())
-            else:
-                outputs.append(curr_case.strip())
+        with open('%s.in' % curr_base_name, 'r') as f:
+            inputs.append(f.read())
 
-    with open(file_name) as f:
-        for line in f.readlines():
-            if line == DELIM_INPUT or line == DELIM_OUTPUT or line == DELIM_CASE:
-                push_case(curr_case)
-                curr_case = ''
-
-            if line == DELIM_INPUT:
-                mode = 'in'
-            elif line == DELIM_OUTPUT:
-                mode = 'out'
-            else:
-                curr_case += line
-
-    if curr_case != '':
-        push_case(curr_case)
+        with open('%s.out' % curr_base_name, 'r') as f:
+            outputs.append(f.read())
 
     return to_cases(inputs, outputs)
