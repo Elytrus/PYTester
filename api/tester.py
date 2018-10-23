@@ -54,7 +54,7 @@ def __disp_input(inp, case_no, flags):
         print('-- Test Case #%d --' % case_no)
 
 
-def __test_file(file, inp, check_time, time_limit, pre=None, post=None):
+def __test_file(file, inp, flags, time_limit, pre=None, post=None):
     # Open Subprocess
     proc = sub.Popen(['py', file], stdin=sub.PIPE, stdout=sub.PIPE, stderr=sub.PIPE)
 
@@ -72,7 +72,7 @@ def __test_file(file, inp, check_time, time_limit, pre=None, post=None):
         tle = True
         result = ('', '')
 
-    if check_time:
+    if 'check_time' in flags:
         try:
             timer = Timer(time_limit + 0.05, kproc)
             timer.start()
@@ -84,7 +84,7 @@ def __test_file(file, inp, check_time, time_limit, pre=None, post=None):
 
     out, err = map(__decode_out, result)
 
-    if check_time:
+    if 'disp_time' in flags:
         elapsed = time.time() - ctime
         print('Case took %.3f seconds' % elapsed)
 
@@ -118,7 +118,7 @@ def test_case(file, case, case_no, flags='', time_limit=None):
     # Display Input
     __disp_input(case.inp, case_no, flags)
 
-    results = __test_file(file, case.inp, 'disp_time' in flags, time_limit)
+    results = __test_file(file, case.inp, flags, time_limit)
 
     # Display Output
     return __process_output(*results, case.out, flags)
