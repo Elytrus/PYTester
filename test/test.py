@@ -25,8 +25,8 @@ io_cases_lg = cases.parse_case_files('iotest/cases/echo_large', 1)
 
 print('Loaded test input')
 
-ctest.test('iotest/echonormalio.py', io_cases, 'test disp_time')
-ctest.test('iotest/echonormalio.py', io_cases_lg, 'test disp_time')
+# ctest.test('iotest/echonormalio.py', io_cases, 'test disp_time')
+# ctest.test('iotest/echonormalio.py', io_cases_lg, 'test disp_time')
 
-ctest.test('iotest/echofastio.py', io_cases, 'test disp_time')
-ctest.test('iotest/echofastio.py', io_cases_lg, 'test disp_time')
+ctest.test('iotest/echonormalio.py', io_cases, 'test disp_time check_time', 2)
+ctest.test('iotest/echonormalio.py', io_cases_lg, 'test disp_time check_time', 2)

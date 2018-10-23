@@ -1,3 +1,6 @@
+import api.tester as ctest
+
+
 class Case:
     def __init__(self, inp, out):
         self.inp = inp
@@ -55,3 +58,7 @@ def parse_case_files(base_name, case_cnt=1):
             outputs.append(f.read())
 
     return to_cases(inputs, outputs)
+
+
+def test_all_cases(base_name, prgm_file, flags, case_cnt=1):
+    ctest.test(prgm_file, parse_case_files(base_name, case_cnt), flags)

@@ -9,7 +9,7 @@ TESTING_MODE = True
 def __decode_out(b):
     if b:
         return str(b, 'utf-8')
-    return 0
+    return ''
 
 
 def __parse_flags(f):
@@ -20,7 +20,7 @@ def __parse_flags(f):
 
 # Display Functions
 
-def __disp_output(out, err, cor_out, flags):
+def __disp_output(out, err, tle, cor_out, flags):
     # Print Output
     if err:
         print('[ Errors ] : \n%s' % err)
@@ -29,7 +29,9 @@ def __disp_output(out, err, cor_out, flags):
         print('[ Output ] : \n%s' % out)
 
     if 'test' in flags:
-        if out != cor_out:
+        if tle:
+            print('!! Time Limit Exceeded !!')
+        elif out != cor_out:
             if 'disp_correct' in flags:
                 print('[ Correct Solution (Output was Wrong!) ] :\n%s' % cor_out)
             else:
@@ -46,7 +48,7 @@ def __disp_input(inp, case_no, flags):
         print('-- Test Case #%d --' % case_no)
 
 
-def __test_file(file, inp, pre=None, post=None):
+def __test_file(file, inp, check_time, time_limit, pre=None, post=None):
     # Open Subprocess
     proc = sub.Popen(['py', file], stdin=sub.PIPE, stdout=sub.PIPE, stderr=sub.PIPE)
 
@@ -54,14 +56,22 @@ def __test_file(file, inp, pre=None, post=None):
         pre()
 
     # Send in Input and take back Output
+    ctime = time.time()
     out, err = map(__decode_out, proc.communicate(bytes(inp, 'utf-8')))
+
+    tle = False
+    if check_time:
+        elapsed = time.time() - ctime
+        print('Case took %.3f seconds' % elapsed)
+        if elapsed > time_limit:
+            tle = True
 
     if post:
         post()
 
     out = out.strip().replace('\r', '')
 
-    return out, err
+    return out, err, tle
 
 
 '''
@@ -72,6 +82,7 @@ disp_out - Display output
 disp_correct - Display correct output when output is wrong (Requires test flag)
 
 disp_time - Display correct time
+check_time - Checks whether time is within limits (Set the time_limit function parameter if you use this flag)
 '''
 
 
@@ -79,29 +90,25 @@ def empty_fun():
     pass
 
 
-def test_case(file, case, case_no, flags=''):
+def test_case(file, case, case_no, flags='', time_limit=None):
     flags = __parse_flags(flags)
 
     # Display Input
     __disp_input(case.inp, case_no, flags)
 
-    def new_time():
-        print('Case took %.3f seconds' % (time.time() - ctime))
-
-    ctime = time.time()
-    out, err = __test_file(file, case.inp, post=new_time if 'disp_time' in flags else empty_fun)
+    results = __test_file(file, case.inp, 'disp_time' in flags, time_limit)
 
     # Display Output
-    __disp_output(out, err, case.out, flags)
+    __disp_output(*results, case.out, flags)
 
 
-def test(file, cases, flags=''):
+def test(file, cases, flags='', time_limit=None):
     flags = __parse_flags(flags)
     case_count = len(cases)
 
     print('-- [ Testing file %s with %d Test Cases ] --' % (file, case_count))
     for i, case in zip(range(1, case_count + 1), cases):
-        test_case(file, case, i, flags)
+        test_case(file, case, i, flags, time_limit)
 
         # Newline for Formatting
         print()
