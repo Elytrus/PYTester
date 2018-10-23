@@ -52,10 +52,10 @@ def parse_case_files(base_name, case_cnt=1):
         curr_base_name = '%s_%d' % (base_name, i)
 
         with open('%s.in' % curr_base_name, 'r') as f:
-            inputs.append(f.read())
+            inputs.append(f.read().strip())
 
         with open('%s.out' % curr_base_name, 'r') as f:
-            outputs.append(f.read())
+            outputs.append(f.read().strip())
 
     return to_cases(inputs, outputs)
 

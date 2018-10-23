@@ -1,5 +1,6 @@
 import subprocess as sub
 import time
+from threading import Timer
 
 TESTING_MODE = True
 
@@ -20,7 +21,9 @@ def __parse_flags(f):
 
 # Display Functions
 
-def __disp_output(out, err, tle, cor_out, flags):
+def __process_output(out, err, tle, cor_out, flags):
+    correct = False
+
     # Print Output
     if err:
         print('[ Errors ] : \n%s' % err)
@@ -38,6 +41,9 @@ def __disp_output(out, err, tle, cor_out, flags):
                 print('!! Wrong Answer !!')
         else:
             print('!! Correct Answer !!')
+            correct = True
+
+    return correct
 
 
 def __disp_input(inp, case_no, flags):
@@ -56,15 +62,30 @@ def __test_file(file, inp, check_time, time_limit, pre=None, post=None):
         pre()
 
     # Send in Input and take back Output
-    ctime = time.time()
-    out, err = map(__decode_out, proc.communicate(bytes(inp, 'utf-8')))
-
+    result = None
     tle = False
+    ctime = time.time()
+
+    def kproc():
+        proc.kill()
+        tle = True
+        result = ('', '')
+
+    if check_time:
+        try:
+            timer = Timer(time_limit + 0.05, kproc)
+            timer.start()
+            result = proc.communicate(bytes(inp, 'utf-8'))
+        finally:
+            timer.cancel()
+    else:
+        result = proc.communicate(bytes(inp, 'utf-8'))
+
+    out, err = map(__decode_out, result)
+
     if check_time:
         elapsed = time.time() - ctime
         print('Case took %.3f seconds' % elapsed)
-        if elapsed > time_limit:
-            tle = True
 
     if post:
         post()
@@ -99,16 +120,21 @@ def test_case(file, case, case_no, flags='', time_limit=None):
     results = __test_file(file, case.inp, 'disp_time' in flags, time_limit)
 
     # Display Output
-    __disp_output(*results, case.out, flags)
+    return __process_output(*results, case.out, flags)
 
 
 def test(file, cases, flags='', time_limit=None):
     flags = __parse_flags(flags)
     case_count = len(cases)
+    correct = 0
 
     print('-- [ Testing file %s with %d Test Cases ] --' % (file, case_count))
     for i, case in zip(range(1, case_count + 1), cases):
-        test_case(file, case, i, flags, time_limit)
+        correct += test_case(file, case, i, flags, time_limit)
 
         # Newline for Formatting
         print()
+
+    if 'test' in flags:
+        print('You got %d/%d cases correct!' % (correct, case_count))
+        print('That was %.2f%% of all cases!' % (correct / case_count * 100))
