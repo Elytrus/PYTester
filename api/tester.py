@@ -67,6 +67,7 @@ def __test_file(file, inp, check_time, time_limit, pre=None, post=None):
     ctime = time.time()
 
     def kproc():
+        nonlocal tle, result
         proc.kill()
         tle = True
         result = ('', '')
