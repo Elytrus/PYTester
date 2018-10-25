@@ -132,7 +132,7 @@ def test(file, cases, flags='', time_limit=None):
     print('-- [ Testing file %s with %d Test Cases ] --' % (file, case_count))
 
     if 'check_time' in flags:
-        print(' -- The time limit for test cases is %.2fs' % float(time_limit))
+        print(' -- The time limit for test  cases is %.2fs' % float(time_limit))
 
     print()
 
