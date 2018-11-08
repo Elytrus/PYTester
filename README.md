@@ -8,5 +8,7 @@ TODO List:
 - Add support for batch cases (idk maybe?)
 - Add ways to generate randomized test cases quickly
 - Lots of documentation for functions and whatnot
+- Find a way to package this into something that can be more easily transported
+- Test (submission) ids
 
 Feel free to give your own feedback below!
