@@ -1,3 +1,6 @@
+TRUNCATE_AMOUNT = 20
+
+
 class Case:
     def __init__(self, inp, out):
         """
@@ -30,7 +33,7 @@ class Case:
         :rtype: str
         """
 
-        return 'input: %s, output: %s' % (self.inp, self.out)
+        return '(%s, %s)' % (self.inp[:TRUNCATE_AMOUNT], self.out[:TRUNCATE_AMOUNT])
 
 
 class Result:
@@ -48,7 +51,7 @@ class Result:
         :type err: str
         :param time: The amount of time it took for the code to execute
         :type time: float
-        :param code: The code from the case (AC: Correct, WA: Wrong Answer, TLE: Time Limit Exceeded, IR: Error)
+        :param code: The code from the case (AC: Correct, WA: Wrong Answer, TLE: Time Limit Exceeded, IR: Error, U: Not sure if correct or not)
         :type code: str
         """
 
@@ -58,3 +61,16 @@ class Result:
         self.err = err
         self.time = time
         self.code = code
+
+    def __str__(self):
+        """
+        To string function
+
+        Note: The outputs for instance variables self.case and self.out will be truncated
+
+        :return: Self-explanatory
+        :rtype: str
+        """
+
+        return 'case_id=%d, case=%s, out=%s, err=%s, time=%.3f, code=%s' % \
+               (self.case_id, self.case, self.out[:TRUNCATE_AMOUNT], self.err, self.time, self.code)

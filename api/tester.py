@@ -8,7 +8,17 @@ import event.event_types as event_types
 import api.types as types
 from threading import Thread, Timer
 
-TESTING_MODE = True
+CFG_FLAGS_SECT = 'Flags'
+CFG_SETTINGS_SECT = 'Settings'
+
+CFG_TIME_LIMIT_KEY = 'TimeLimit'
+CFG_CASE_COUNT_KEY = 'CaseCount'
+CFG_DIRECTORY_KEY = 'Directory'
+CFG_BASE_NAME_KEY = 'BaseName'
+CFG_PROGRAM_NAME_KEY = 'ProgramName'
+
+FLAG_CHECK_OUTPUT_KEY = 'checkoutput'
+FLAG_CHECK_TIME_KEY = 'checktime'
 
 
 class Tester:
@@ -41,7 +51,7 @@ class Tester:
         :return:
         """
 
-        thread = Thread(target=self.test_sync, args=config_file)
+        thread = Thread(target=self.test_sync, args=(config_file,))
         thread.start()
 
     def test_sync(self, config_file):
@@ -77,23 +87,23 @@ class Tester:
         config = configparser.ConfigParser()
         config.read_file(config_file)
 
-        program_name = config.get('Settings', 'ProgramName', fallback=None)
-        base_name = config.get('Settings', 'BaseName', fallback=None)
-        directory = config.get('Settings', 'Directory', fallback='.')
-        case_count = config.getint('Settings', 'CaseCount', fallback=1)
-        time_limit = config.getfloat('Settings', 'TimeLimit', fallback=-1.0)
+        program_name = config.get(CFG_SETTINGS_SECT, CFG_PROGRAM_NAME_KEY, fallback=None)
+        base_name = config.get(CFG_SETTINGS_SECT, CFG_BASE_NAME_KEY, fallback=None)
+        directory = config.get(CFG_SETTINGS_SECT, CFG_DIRECTORY_KEY, fallback='.')
+        case_count = config.getint(CFG_SETTINGS_SECT, CFG_CASE_COUNT_KEY, fallback=1)
+        time_limit = config.getfloat(CFG_SETTINGS_SECT, CFG_TIME_LIMIT_KEY, fallback=-1.0)
 
         if not program_name:
             raise ValueError('Required field %s.%s was not specified in the config file!' %
-                             ('Settings', 'ProgramName'))
+                             (CFG_SETTINGS_SECT, CFG_PROGRAM_NAME_KEY))
 
         if not base_name:
             raise ValueError('Required field %s.%s was not specified in the config file!' %
-                             ('Settings', 'BaseName'))
+                             (CFG_SETTINGS_SECT, CFG_BASE_NAME_KEY))
 
-        if not config.has_section('Flags'):
+        if not config.has_section(CFG_FLAGS_SECT):
             raise ValueError('Required section %s was not specified in the config file!' %
-                             'Flags')
+                             CFG_FLAGS_SECT)
 
         # Running private test function
 
@@ -101,7 +111,7 @@ class Tester:
                    case_count,
                    parse_case_files(base_name, case_count, directory),
                    time_limit,
-                   collections.defaultdict(bool, config['Flags']))
+                   collections.defaultdict(bool, config[CFG_FLAGS_SECT]))
 
     @staticmethod
     def _decode_output(out_bytes):
@@ -149,7 +159,7 @@ class Tester:
                 tle = True
                 result = ('', '')
 
-            if flags['checktime'] and time_limit != -1.0:
+            if flags[FLAG_CHECK_TIME_KEY] and time_limit != -1.0:
                 try:
                     timer = Timer(time_limit + 0.05, kill_process)
                     timer.start()
@@ -170,7 +180,7 @@ class Tester:
                 code = 'IR'
             elif tle:
                 code = 'TLE'
-            elif flags['checkoutput']:
+            elif flags[FLAG_CHECK_OUTPUT_KEY]:
                 if out != case.out:
                     code = 'WA'
                 else:

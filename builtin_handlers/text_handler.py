@@ -4,13 +4,16 @@ import event.event_types as event_types
 
 def on_finish(event):
     print('End Results: %d/%d cases correct!' % (event.correct_count, event.total_count))
+    print()
 
 
 def on_case(event):
     print('Result for Case #%d: %s (%.3fs)' % (event.results.case_id, event.results.code, event.results.time))
 
     if event.results.err:
-        print('Error was:', event.results.err)
+        print('Error was:\n', event.results.err)
+    elif event.results.code == 'WA':
+        print('Output (truncated):', event.results.out[:20])
 
 
 def on_begin(event):
