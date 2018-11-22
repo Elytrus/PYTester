@@ -135,7 +135,7 @@ class Tester:
 
         new_file_name = run.pre_exec_file(file_name)
 
-        if new_file_name == 'CE': # Compile error
+        if new_file_name == 'CE':  # Compile error
             self.dispatcher.dispatch(event_types.FinishEvent(file_name, 0, case_count, ['CE'], flags))
             return
 

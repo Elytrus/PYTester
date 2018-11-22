@@ -4,6 +4,7 @@ import os.path
 import subprocess as sub
 from threading import Timer
 
+
 def _create(command):
     """
     Creates subprocess with the command and pipes standard I/O streams
@@ -13,6 +14,7 @@ def _create(command):
     :return: The process created
     """
     return sub.Popen(command, stdin=sub.PIPE, stdout=sub.PIPE, stderr=sub.PIPE)
+
 
 def _create_py(file_name, argv):
     """
@@ -24,6 +26,7 @@ def _create_py(file_name, argv):
 
     return _create(['py', file_name] + argv)
 
+
 def _create_nml(file_name, argv):
     """
     Creates subprocess for any executable file
@@ -33,6 +36,7 @@ def _create_nml(file_name, argv):
     """
 
     return _create([file_name] + argv)
+
 
 def _pre_process_cpp(file_name):
     """
@@ -50,6 +54,7 @@ def _pre_process_cpp(file_name):
 
     return exec_name
 
+
 def _pre_process_c(file_name):
     """
     Compiles the C source file
@@ -66,6 +71,7 @@ def _pre_process_c(file_name):
 
     return exec_name
 
+
 PRE_PROCESS = {
     '.cpp': _pre_process_cpp,
     '.c': _pre_process_c
@@ -80,10 +86,12 @@ POST_PROCESS = {
     '.exe': os.remove
 }
 
+
 def _decode_output(out_bytes):
     if out_bytes:
         return str(out_bytes, 'utf-8')
     return ''
+
 
 def pre_exec_file(file_name):
     """
@@ -98,6 +106,7 @@ def pre_exec_file(file_name):
     if ext in PRE_PROCESS:
         return PRE_PROCESS[ext](file_name)
 
+
 def post_exec_file(file_name):
     """
     Does any post execution of files after the test cases are finished
@@ -111,10 +120,12 @@ def post_exec_file(file_name):
     if ext in POST_PROCESS:
         POST_PROCESS[ext](file_name)
 
+
 def exec_file(file_name, case_input, time_limit=-1, argv=[]):
     """
     Executes a case for the file `file_name`
 
+    :param argv: Optional system arguments to execute
     :param file_name: The name of the case to execute
     :param case_input: The test case input
     :param time_limit: The time limit in seconds, or -1 if there is no time limit
