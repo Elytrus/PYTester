@@ -27,8 +27,8 @@ def generate(base_name, input_generator_file, output_generator_file, case_cnt=1,
                 else:
                     cargv = [str(input_argv[i - 1])]
 
-            case_in, _, _, _ = run.exec_file(input_generator_file, '', argv=cargv)
-            case_out, _, _, _ = run.exec_file(output_generator_file, case_in)
+            case_in, err_in, _, _ = run.exec_file(input_generator_file, '', argv=cargv)
+            case_out, err_out, _, _ = run.exec_file(output_generator_file, case_in)
 
             curr_base_name = '%s_%d' % (base_name, i)
 
@@ -37,6 +37,16 @@ def generate(base_name, input_generator_file, output_generator_file, case_cnt=1,
 
             with open(curr_base_name + '.out', 'w') as f:
                 f.write(case_out)
+
+            # Debug Output
+
+            if err_in:
+                print('An error occurred while generating input for case %d:\n%s' % (i, err_in))
+                print()
+
+            if err_out:
+                print('An error occurred while generating output for case %d:\n%s' % (i, err_out))
+                print()
 
             print('Generated case %d' % i)
 
