@@ -17,6 +17,8 @@ def generate(base_name, input_generator_file, output_generator_file, case_cnt=1,
 
         input_argv_len = len(input_argv)
         for i in range(1, case_cnt + 1):
+            cargv = []
+
             if i <= input_argv_len:
                 cargv = input_argv[i - 1]
 
