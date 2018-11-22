@@ -14,7 +14,7 @@ def _create(command):
     """
     return sub.Popen(command, stdin=sub.PIPE, stdout=sub.PIPE, stderr=sub.PIPE)
 
-def _create_py(file_name):
+def _create_py(file_name, argv):
     """
     Creates subprocess for python
 
@@ -22,9 +22,9 @@ def _create_py(file_name):
     :return: The process created
     """
 
-    return _create(['py', file_name])
+    return _create(['py', file_name] + argv)
 
-def _create_nml(file_name):
+def _create_nml(file_name, argv):
     """
     Creates subprocess for any executable file
 
@@ -32,7 +32,7 @@ def _create_nml(file_name):
     :return: The process created
     """
 
-    return _create([file_name])
+    return _create([file_name] + argv)
 
 def _pre_process_cpp(file_name):
     """
@@ -111,7 +111,7 @@ def post_exec_file(file_name):
     if ext in POST_PROCESS:
         POST_PROCESS[ext](file_name)
 
-def exec_file(file_name, case_input, time_limit=-1):
+def exec_file(file_name, case_input, time_limit=-1, argv=[]):
     """
     Executes a case for the file `file_name`
 
@@ -124,7 +124,7 @@ def exec_file(file_name, case_input, time_limit=-1):
     ext = os.path.splitext(file_name)[1]
 
     if ext in CREATE_PROCESS:
-        process = CREATE_PROCESS[ext](file_name)
+        process = CREATE_PROCESS[ext](file_name, argv)
     else:
         raise ValueError('Invalid file type!')
 
