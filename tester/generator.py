@@ -22,7 +22,7 @@ def generate(base_name, input_generator_file, output_generator_file, case_cnt=1,
             # Converting system arguments so lists of strings
 
             if i <= input_argv_len:
-                if isinstance(input_argv[i - 1], iter):
+                if isinstance(input_argv[i - 1], list):
                     cargv = [str(arg) for arg in input_argv[i - 1]]
                 else:
                     cargv = [str(input_argv[i - 1])]
