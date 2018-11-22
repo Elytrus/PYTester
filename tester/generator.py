@@ -19,8 +19,13 @@ def generate(base_name, input_generator_file, output_generator_file, case_cnt=1,
         for i in range(1, case_cnt + 1):
             cargv = []
 
+            # Converting system arguments so lists of strings
+
             if i <= input_argv_len:
-                cargv = [str(arg) for arg in input_argv[i - 1]]
+                if isinstance(input_argv[i - 1], iter):
+                    cargv = [str(arg) for arg in input_argv[i - 1]]
+                else:
+                    cargv = [str(input_argv[i - 1])]
 
             case_in, _, _, _ = run.exec_file(input_generator_file, '', argv=cargv)
             case_out, _, _, _ = run.exec_file(output_generator_file, case_in)
