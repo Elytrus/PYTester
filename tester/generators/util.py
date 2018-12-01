@@ -8,7 +8,9 @@ def join_all(join_list, *join_chars):
     """
 
     def recur(curr_list, layer):
-        if type(join_list) == list:
+        typ = type(curr_list)
+
+        if typ == list or typ == tuple:
             return join_chars[layer].join([recur(elem, layer + 1) for elem in curr_list])
 
         return str(curr_list)
@@ -33,7 +35,7 @@ class Joiner:
     def __call__(self):
         lis = []
         for generator in self.generators:
-            lis.extend(generator)
+            lis.extend(generator())
         return lis
 
 

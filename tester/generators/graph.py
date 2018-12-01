@@ -3,7 +3,7 @@ import tester.generators.number as numbers
 
 
 class Generator:
-    def __init__(self, nodes, edges, number_generator=None, allow_duplicate=False, increasing=False):
+    def __init__(self, nodes, edges, number_generator=None, allow_duplicate=False, increasing=True):
         """
         Constructor
 
@@ -22,12 +22,12 @@ class Generator:
         if number_generator:
             self.number_generator = number_generator
         else:
-            self.number_generator = numbers.RandomGenerator(1, self.nodes + 1)
+            self.number_generator = numbers.RandomGenerator(1, self.nodes)
 
         if not self.allow_duplicate:
             self.max_edge_count = nodes * (nodes - 1) // 2
 
-            if self.max_edge_count > edges:
+            if self.max_edge_count < edges:
                 raise ValueError('Edge count too large!')
 
             # The method being used is selected based on the edge count compared to the maximum amount of edges being
@@ -37,6 +37,24 @@ class Generator:
 
             self._method = edges > (self.max_edge_count // 2)
             self._method_fun = self._run_method1 if self._method else self._run_method0
+
+            if self._method:
+                self._init_method1()
+            else:
+                self._init_method0()
+
+    def _swap_if_non_increase(self, a, b):
+        """
+        Randomly swaps the given pair if self.increase is False
+
+        :param a: The first number of the pair
+        :param b: The second number of the pair
+        :return: A tuple of (int, int)
+        """
+
+        if not self.increasing:
+            return (a, b) if random.randint(0, 1) else (b, a)
+        return a, b
 
     def _make_node_pair(self):
         """
@@ -51,7 +69,7 @@ class Generator:
         while b == a:
             b = self.number_generator()
 
-        if self.increasing and b < a:
+        if b < a:
             return b, a
 
         return a, b
@@ -92,7 +110,7 @@ class Generator:
             edge = self._make_node_pair()
 
         self.used_edges.add(edge)
-        return edge
+        return self._swap_if_non_increase(*edge)
 
     def _run_method1(self):
         """
@@ -101,7 +119,7 @@ class Generator:
         :return: A tuple of (int, int)
         """
 
-        return next(self.edge_iter)
+        return self._swap_if_non_increase(*next(self.edge_iter))
 
     def new_edge(self):
         """
@@ -111,22 +129,28 @@ class Generator:
         """
 
         if self.allow_duplicate:
-            return self._make_node_pair()
+            return self._swap_if_non_increase(*self._make_node_pair())
         else:
             return self._method_fun()
 
     def __call__(self):
-        return [self.new_edge() for _ in range(self.edges)]
+        edges = [self.new_edge() for _ in range(self.edges)]
+
+        if (not self.allow_duplicate) and self._method == 0:
+            self.used_edges = set()
+
+        return edges
 
 
 class TreeGenerator(Generator):
-    def __init__(self, nodes, number_generator=None, increasing=False):
+    def __init__(self, nodes, number_generator=None, increasing=True):
         super().__init__(nodes, nodes - 1, number_generator, True, increasing)
 
     def __call__(self):
         omitted = self.number_generator()
         edges_start = []
         edges_end = [omitted]
+        used_edges = [set() for _ in range(self.nodes + 1)]
 
         for i in range(1, self.nodes + 1):
             if i != omitted:
@@ -135,10 +159,12 @@ class TreeGenerator(Generator):
         for i in range(1, self.nodes - 1):
             val = edges_start[i]
 
-            while val == edges_start[i]:
+            while val == edges_start[i] or val in used_edges[i]:
                 val = self.number_generator()
 
-            edges_end.append(i)
+            used_edges[val].add(i)
+            edges_end.append(val)
+
 
         if self.increasing:
             return [(j, i) if j < i else (i, j) for i, j in zip(edges_start, edges_end)]
@@ -146,15 +172,22 @@ class TreeGenerator(Generator):
         return list(zip(edges_start, edges_end))
 
 
-class ConnectedGenerator(TreeGenerator):
-    pass
+class ConnectedGenerator:
+    def __init__(self):
+        pass
+
+    def __call__(self):
+        pass
 
 
 class WeightedGenerator:
-    def __init__(self, graph_generator, weight_generator):
-        self.weight_generator = weight_generator
+    def __init__(self, graph_generator, weight_generator=None, min_weight=0, max_weight=0):
         self.graph_generator = graph_generator
+        self.weight_generator = weight_generator
+
+        if not self.weight_generator:
+            self.weight_generator = numbers.RandomGenerator(min_weight, max_weight)
 
     def __call__(self):
         edges = self.graph_generator()
-        return [edge + [self.weight_generator()] for edge in edges]
+        return [edge + (self.weight_generator(),) for edge in edges]

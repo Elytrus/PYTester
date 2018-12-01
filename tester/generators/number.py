@@ -20,14 +20,14 @@ class IncreasingSequenceGenerator:
 
     def __call__(self):
         if self.strict:
-            return random.sample(range(self.min, self.max), self.count)
+            return sorted(random.sample(range(self.min, self.max), self.count))
         else:
-            return random.choices(range(self.min, self.max), self.count)
+            return sorted(random.choices(range(self.min, self.max), k=self.count))
 
 
 class DecreasingSequenceGenerator(IncreasingSequenceGenerator):
     def __call__(self):
-        return reversed(super().__call__())
+        return list(reversed(super().__call__()))
 
 
 class NumberListGenerator(Joiner):
