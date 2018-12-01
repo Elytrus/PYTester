@@ -1,5 +1,6 @@
 import tester.tester as tester
 import tester.event.event_types as event_types
+from tester.types import TRUNCATE_AMOUNT
 
 
 def on_finish(event):
@@ -25,14 +26,40 @@ def on_begin(event):
 
 
 class TextHandler:
-    def __init__(self):
+    """
+    A text based display mechanism for test case results
+    """
+
+    def __init__(self, show_time=True, show_score=True, show_correct_output=True, truncate_amount=TRUNCATE_AMOUNT):
+        """
+        Constructor
+
+        :param show_time: Controls whether the run time is shown
+        :param show_score: Controls whether a score is shown in the end
+        :param show_correct_output: Controls whether correct output is shown in case of a WA
+        :param truncate_amount: How much to truncate output by (if it is being displayed)
+        """
+
         self.tester = tester.Tester()
 
         self.tester.register_handler(event_types.BeginEvent, on_begin)
         self.tester.register_handler(event_types.CaseTestedEvent, on_case)
         self.tester.register_handler(event_types.FinishEvent, on_finish)
 
+        self.truncate_amount = truncate_amount
+        self.show_correct_output = show_correct_output
+        self.show_score = show_score
+        self.show_time = show_time
+
     def test(self, file_name, is_async=False):
+        """
+        Tests the specified file in either a synchronous or asynchronous fashion
+
+        :param file_name: The file name of the file to run the test with
+        :param is_async: Whether the test is asynchronous
+        :return: Nothing
+        """
+
         if is_async:
             self.tester.test_async(file_name)
         else:

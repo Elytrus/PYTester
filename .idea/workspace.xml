@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b43f7417-172c-4262-85d3-bc34c0a830d5" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/tester/generators/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tester/generators/graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tester/generators/number.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tester/generators/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tester/misc/disjoint.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tester/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tester/generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tester/handlers/text_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/tester/handlers/text_handler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,45 +41,66 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="4" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="428" />
+          <entry key="py" value="9529" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="428" />
+          <entry key="Python" value="9529" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="ini" value="2" />
-          <entry key="py" value="7" />
+          <entry key="py" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Ini" value="2" />
-          <entry key="Python" value="7" />
+          <entry key="Python" value="19" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tester/tester.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tester/generators/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+            <state relative-caret-position="-13">
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <marker date="1543625030228" expanded="true" signature="37:546" ph="..." />
+                <marker date="1543625030228" expanded="true" signature="354:517" ph="..." />
+                <marker date="1543625030228" expanded="true" signature="635:636" ph="..." />
+                <marker date="1543625030228" expanded="true" signature="795:800" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tester/generators/graph.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="60" lean-forward="true" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+                <marker date="1543631842346" expanded="true" signature="75:80" ph="..." />
+                <marker date="1543631842346" expanded="true" signature="1877:2080" ph="..." />
+                <marker date="1543631842346" expanded="true" signature="2641:3185" ph="..." />
+                <marker date="1543631842346" expanded="true" signature="3423:3429" ph="..." />
+                <marker date="1543631842346" expanded="true" signature="4344:4347" ph="..." />
               </folding>
             </state>
           </provider>
@@ -134,15 +162,19 @@
         <option value="$PROJECT_DIR$/test/iotest/cases/test_c.ini" />
         <option value="$PROJECT_DIR$/test/iotest/cases/test_cpp.ini" />
         <option value="$PROJECT_DIR$/tester/event/event_types.py" />
-        <option value="$PROJECT_DIR$/tester/handlers/text_handler.py" />
         <option value="$PROJECT_DIR$/tester/tester.py" />
         <option value="$PROJECT_DIR$/tester/run.py" />
         <option value="$PROJECT_DIR$/test/test.py" />
+        <option value="$PROJECT_DIR$/tester/generators/util.py" />
+        <option value="$PROJECT_DIR$/tester/misc/disjoint.py" />
         <option value="$PROJECT_DIR$/tester/generator.py" />
+        <option value="$PROJECT_DIR$/tester/handlers/text_handler.py" />
+        <option value="$PROJECT_DIR$/tester/generators/number.py" />
+        <option value="$PROJECT_DIR$/tester/generators/graph.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="75" />
     <option name="y" value="12" />
     <option name="width" value="1401" />
@@ -152,9 +184,7 @@
     <entry key="Project Default">
       <profile-state>
         <expanded-state>
-          <State>
-            <id />
-          </State>
+          <State />
           <State>
             <id>Python</id>
           </State>
@@ -183,31 +213,13 @@
             <path>
               <item name="PYTester" type="b2602c69:ProjectViewProjectNode" />
               <item name="PYTester" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PYTester" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PYTester" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="iotest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PYTester" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PYTester" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="iotest" type="462c0819:PsiDirectoryNode" />
-              <item name="cases" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PYTester" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PYTester" type="462c0819:PsiDirectoryNode" />
               <item name="tester" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PYTester" type="b2602c69:ProjectViewProjectNode" />
               <item name="PYTester" type="462c0819:PsiDirectoryNode" />
               <item name="tester" type="462c0819:PsiDirectoryNode" />
-              <item name="event" type="462c0819:PsiDirectoryNode" />
+              <item name="generators" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PYTester" type="b2602c69:ProjectViewProjectNode" />
@@ -299,6 +311,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.14149444" />
@@ -417,45 +430,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tester/event/dispatcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tester/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="123" column="7" lean-forward="true" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tester/event/event_types.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tester/handlers/text_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-249">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/iotest/cases/test.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tester/types.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
         </state>
       </provider>
     </entry>
@@ -466,19 +444,108 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tester/misc/disjoint.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="61" column="59" selection-start-line="61" selection-start-column="59" selection-end-line="61" selection-end-column="59" />
+          <folding>
+            <marker date="1543625153917" expanded="true" signature="448:449" ph="..." />
+            <marker date="1543625153917" expanded="true" signature="734:735" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/event/event_types.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/event/dispatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tester/generator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="47" column="64" selection-start-line="47" selection-start-column="64" selection-end-line="47" selection-end-column="64" />
+        <state relative-caret-position="204">
+          <caret line="12" column="83" selection-start-line="12" selection-start-column="83" selection-end-line="12" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1738">
+          <caret line="123" column="7" lean-forward="true" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/types.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tester/tester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+        <state relative-caret-position="-874">
+          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/handlers/text_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="38" column="92" selection-start-line="38" selection-start-column="92" selection-end-line="38" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/generators/number.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1543626147704" expanded="true" signature="715:720" ph="..." />
+            <marker date="1543626147704" expanded="true" signature="820:825" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/generators/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13">
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
+          <folding>
+            <marker date="1543625030228" expanded="true" signature="37:546" ph="..." />
+            <marker date="1543625030228" expanded="true" signature="354:517" ph="..." />
+            <marker date="1543625030228" expanded="true" signature="635:636" ph="..." />
+            <marker date="1543625030228" expanded="true" signature="795:800" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tester/generators/graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="60" lean-forward="true" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1543631842346" expanded="true" signature="75:80" ph="..." />
+            <marker date="1543631842346" expanded="true" signature="1877:2080" ph="..." />
+            <marker date="1543631842346" expanded="true" signature="2641:3185" ph="..." />
+            <marker date="1543631842346" expanded="true" signature="3423:3429" ph="..." />
+            <marker date="1543631842346" expanded="true" signature="4344:4347" ph="..." />
           </folding>
         </state>
       </provider>
