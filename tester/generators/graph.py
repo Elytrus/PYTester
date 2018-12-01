@@ -2,7 +2,7 @@ import random
 import tester.generators.number as numbers
 
 
-class Generator:
+class GraphGenerator:
     def __init__(self, nodes, edges, number_generator=None, allow_duplicate=False, increasing=True):
         """
         Constructor
@@ -142,7 +142,7 @@ class Generator:
         return edges
 
 
-class TreeGenerator(Generator):
+class TreeGenerator(GraphGenerator):
     def __init__(self, nodes, number_generator=None, increasing=True):
         super().__init__(nodes, nodes - 1, number_generator, True, increasing)
 

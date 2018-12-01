@@ -34,7 +34,7 @@ elif test_type == 'generator':
     g = TreeGenerator(5, increasing=False)
     print(g())
 
-    g = Generator(10, 20, increasing=False)
+    g = GraphGenerator(10, 20, increasing=False)
     print(join_all(list(sorted(g())), '\n', ' '))
 
     print(join_all(WeightedGenerator(g, min_weight=10, max_weight=20)(), '\n', ' '))
