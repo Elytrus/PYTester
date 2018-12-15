@@ -1,5 +1,7 @@
 import time
 import os
+import re
+import shutil
 import os.path
 import subprocess as sub
 from threading import Timer
@@ -37,6 +39,16 @@ def _create_nml(file_name, argv):
 
     return _create([file_name] + argv)
 
+def _create_java(file_name, argv):
+    """
+    Creates subprocess for any jar file
+
+    :param file_name: Name of jar file
+    :return: The process created
+    """
+
+    return _create(['java', '-jar', file_name] + argv)
+
 
 def _pre_process_cpp(file_name):
     """
@@ -72,18 +84,91 @@ def _pre_process_c(file_name):
     return exec_name
 
 
+JAR_MANIFEST = 'manifest.txt'
+
+
+def _pre_process_java(file_name):
+    """
+    Compiles the Java source file
+
+    :param file_name: Name of Java Source file
+    :return: The file name of the executable created
+    """
+
+    exec_name = '%s.jar' % os.path.splitext(file_name)[0]
+    file_name_was_changed = False
+
+    # Find public class
+
+    with open(file_name) as f:
+        source = f.read(os.path.getsize(file_name))
+
+    match = re.search(r'public\s+class\s+(.*)\s*{', source, flags=re.MULTILINE)
+
+    if not match:
+        return 'CE'
+
+    public_class = match.group(1).strip()
+    new_name = '%s.java' % public_class
+
+    if file_name != new_name:
+        shutil.copy(file_name, new_name)
+        file_name = new_name
+        file_name_was_changed = True
+
+    # Creating manifest and compiling source into class files
+
+    with open(JAR_MANIFEST, 'w') as f:
+        f.write('Main-Class: %s\n' % public_class)
+
+    sub.call(['javac', file_name])
+
+    # Finding Class file names
+
+    class_files = []
+
+    for file in os.listdir('.'):
+        if os.path.splitext(file)[1] == '.class':
+            print('filefile ', file)
+            class_files.append('%s' % file)
+
+    # Creating a jar file
+
+    sub.call(['jar', 'cvfm', exec_name, JAR_MANIFEST] + class_files)
+
+    # Cleanup work
+
+    os.remove(JAR_MANIFEST)
+
+    if file_name_was_changed:
+        os.remove(file_name)
+
+    for class_file in class_files:
+        os.remove(class_file)
+
+    # Return
+
+    if not os.path.exists(exec_name):
+        return 'CE'
+
+    return exec_name
+
+
 PRE_PROCESS = {
     '.cpp': _pre_process_cpp,
-    '.c': _pre_process_c
+    '.c': _pre_process_c,
+    '.java': _pre_process_java
 }
 
 CREATE_PROCESS = {
     '.py': _create_py,
-    '.exe': _create_nml
+    '.exe': _create_nml,
+    '.jar': _create_java,
 }
 
 POST_PROCESS = {
-    '.exe': os.remove
+    '.exe': os.remove,
+    '.jar': os.remove
 }
 
 

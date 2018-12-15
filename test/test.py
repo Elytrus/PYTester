@@ -7,7 +7,7 @@ from tester.generators.graph import *
 
 # Testing Functions
 
-test_type = 'generator'
+test_type = 'handler-java'
 os.chdir('%s\\Desktop\\PYTester\\test' % (os.getenv('userprofile')))
 
 if test_type == 'handler':
@@ -27,6 +27,10 @@ if test_type == 'handler':
     tester.test(open('iotest\\cases\\test.ini'), True)  # Async Test
 
     print('random message here')
+elif test_type == 'handler-java':
+    tester = TextHandler()
+
+    tester.test(open('iotest\\cases\\test_java.ini'))  # Yava Test
 elif test_type == 'generator':
     lis = [[1, 2, 3,], [4, 5, 6], [7, 8, 9]]
     print(join_all(lis, '\n', ' '))
