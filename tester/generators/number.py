@@ -1,5 +1,5 @@
 import random
-from tester.generators.util import Joiner
+from tester.generators.util import Repeater
 
 
 class RandomGenerator:
@@ -30,6 +30,6 @@ class DecreasingSequenceGenerator(IncreasingSequenceGenerator):
         return list(reversed(super().__call__()))
 
 
-class NumberListGenerator(Joiner):
+class NumberListGenerator(Repeater):
     def __init__(self, left, right, count=1):
         super().__init__(RandomGenerator(left, right), count)

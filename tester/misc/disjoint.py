@@ -28,8 +28,8 @@ class DisjointSet:
         if self.set[node] == node:
             return node
 
-        set[node] = self.root(set[node])
-        return set[node]
+        self.set[node] = self.root(self.set[node])
+        return self.set[node]
 
     def union(self, node1, node2):
         """

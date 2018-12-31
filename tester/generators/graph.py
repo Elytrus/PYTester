@@ -3,7 +3,7 @@ import tester.generators.number as numbers
 
 
 class GraphGenerator:
-    def __init__(self, nodes, edges, number_generator=None, allow_duplicate=False, increasing=True):
+    def __init__(self, nodes, edges, number_generator=None, allow_duplicate=False, increasing=True, force_method=-1):
         """
         Constructor
 
@@ -35,7 +35,11 @@ class GraphGenerator:
             # then method 1 (where all possible edges is pre-calculated is used).  Otherwise, method 0 (where edges
             # are randomly generated and checked if they are duplicates) will be used
 
-            self._method = edges > (self.max_edge_count // 2)
+            if force_method == -1:
+                self._method = edges > (self.max_edge_count // 2)
+            else:
+                self._method = force_method
+
             self._method_fun = self._run_method1 if self._method else self._run_method0
 
             if self._method:
@@ -172,12 +176,23 @@ class TreeGenerator(GraphGenerator):
         return list(zip(edges_start, edges_end))
 
 
-class ConnectedGenerator:
-    def __init__(self):
-        pass
+class ConnectedGenerator(GraphGenerator):
+    def __init__(self, nodes, edges, number_generator=None, allow_duplicate=False, increasing=True):
+        if edges < nodes - 1:
+            raise ValueError('Invalid edge count! (Edge count must be at least the node count subtract 1)')
+
+        super().__init__(nodes, edges - nodes + 1, number_generator, allow_duplicate, increasing, 0)
+        self.tree_generator = TreeGenerator(nodes, self.number_generator, self.increasing)
+
 
     def __call__(self):
-        pass
+        edges = self.tree_generator()
+
+        if not self.allow_duplicate:
+            for edge in edges:
+                self.used_edges.add(edge)
+
+        return edges + super().__call__()
 
 
 class WeightedGenerator:

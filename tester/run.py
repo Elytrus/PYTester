@@ -93,6 +93,8 @@ def _pre_process_java(file_name):
 
     :param file_name: Name of Java Source file
     :return: The file name of the executable created
+
+    This shit is long as fuck
     """
 
     exec_name = '%s.jar' % os.path.splitext(file_name)[0]
