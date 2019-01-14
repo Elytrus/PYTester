@@ -18,6 +18,24 @@ def join_all(join_list, *join_chars):
     return recur(join_list, 0)
 
 
+class QueryGenerator:
+    """
+    A generator that allows for different generators to be run depending on queries.
+    This is useful in cases where you have many different of queries that need to be supported.
+    A good example of this is https://dmoj.ca/problem/ds3
+
+    I.e. 
+    """
+
+    def __init__(self, type_generator, **mappings):
+        """
+        Constructor
+
+        :param type_generator: A generator that creates all of the different query types
+        :param mappings: A mapping of each type query to a generator
+        """
+
+
 class Joiner:
     """
     A generator that joins the results of other generators
@@ -57,3 +75,12 @@ class Repeater:
 
     def __call__(self):
         return [self.generator() for _ in range(self.count)]
+
+
+"""
+Aliases for the generators (their names can be very long)
+"""
+
+qugen = QueryGenerator
+join = Joiner
+rep = Repeater

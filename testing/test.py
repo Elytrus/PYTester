@@ -43,8 +43,8 @@ elif test_type == 'generator-number':
     lis = [[1, 2, 3,], [4, 5, 6], [7, 8, 9]]
     print(join_all(lis, '\n', ' '))
 
-    h = IncreasingSequenceGenerator(1, 100, 20, True)
-    i = DecreasingSequenceGenerator(1, 100, 20, True)
+    h = IncreasingGenerator(1, 100, 20, True)
+    i = DecreasingGenerator(1, 100, 20, True)
     print(join_all(Repeater(Joiner(h, i), 10)(), '\n', ' '))
 elif test_type == 'generator-graph':
     print('-- Tree test: --')

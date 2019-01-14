@@ -11,7 +11,7 @@ class RandomGenerator:
         return random.randint(self.min, self.max)
 
 
-class IncreasingSequenceGenerator:
+class IncreasingGenerator:
     def __init__(self, left, right, count, strict=False):
         self.strict = strict
         self.count = count
@@ -25,7 +25,7 @@ class IncreasingSequenceGenerator:
             return sorted(random.choices(range(self.min, self.max), k=self.count))
 
 
-class DecreasingSequenceGenerator(IncreasingSequenceGenerator):
+class DecreasingGenerator(IncreasingGenerator):
     def __call__(self):
         return list(reversed(super().__call__()))
 
@@ -33,3 +33,12 @@ class DecreasingSequenceGenerator(IncreasingSequenceGenerator):
 class NumberListGenerator(Repeater):
     def __init__(self, left, right, count=1):
         super().__init__(RandomGenerator(left, right), count)
+
+
+"""
+Aliases for the different generators
+"""
+
+rand = RandomGenerator
+inc = IncreasingGenerator
+dec = DecreasingGenerator

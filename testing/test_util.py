@@ -84,6 +84,8 @@ def random_test(test_function, parameters, passes=10, invert=False, name=None, s
 
         verdict &= test(test_function, curr_parameters, invert, inner_name, show_inner_output)
 
+    batch_count += 1
+
     if show_output:
         print('-- Final Verdict: %s --' % ('PASS' if verdict else 'FAIL'))
 
